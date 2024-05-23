@@ -5,6 +5,7 @@ An *amateurish* program in python to download VODs from Pomf.tv using a **[publi
 
 ## TODO
 
+- [ ] A better project name
 - [ ] Multiple download
 - [ ] Command line
 - [ ] Configuration file
