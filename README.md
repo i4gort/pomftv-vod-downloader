@@ -11,3 +11,7 @@ An *amateurish* program in python to download VODs from Pomf.tv using a **[publi
 - [ ] Command line 
 - [ ] Configuration file
 - [ ] Downloaded folder
+
+---
+[*ATF*](https://git.allthefallen.moe/i4gor/pomf-vod-dl)
+[*Github*](https://github.com/i4gort/pomftv-vod-downloader)
