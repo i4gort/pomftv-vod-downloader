@@ -53,8 +53,8 @@ def user_input(json_data: dict):
                 print(f"ID: {key}\nDate: {value['date']}\nStream Title: {value['stream_title']}\n")
 
             questions = [
-                    inquirer.List('ID',
-                    message="Which ID would you like to download",
+                    inquirer.Checkbox('ID',
+                    message="Which VOD would you like to download (space to select/enter to confirm)",
                     choices=json_data)
                     ]
             answer = inquirer.prompt(questions) 
@@ -75,10 +75,11 @@ if __name__ == "__main__":
 
             try:
                 vod_id = user_input(json_data)
-                if vod_id is not None:
+                if vod_id != None:
                     try:
-                        url = "https:" + json_data[vod_id]["raw_url"]
-                        download_vod(url)
+                        for number_id in vod_id:
+                            url = "https:" + json_data[number_id]["raw_url"]
+                            download_vod(url)
                     
                     except Exception:
                         print("Invalid ID.")
