@@ -7,10 +7,9 @@ An *amateurish* program in python to download VODs from Pomf.tv using a **[publi
 
 - [ ] A better project name
 - [X] Better ID choosing 
-- [ ] Multiple download
-- [ ] Command line 
-- [ ] Configuration file
-- [ ] Downloaded folder
+- [X] Multiple download
+- [ ] Configuration line
+- [ ] Downloaded VODs folder
 
 ---
 | [*ATF*](https://git.allthefallen.moe/i4gor/pomf-vod-dl) || [*Github*](https://github.com/i4gort/pomftv-vod-downloader) |
