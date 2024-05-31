@@ -1,4 +1,5 @@
 from yt_dlp import YoutubeDL
+from tabulate import tabulate
 import sys
 import requests as req
 import inquirer
@@ -48,9 +49,12 @@ def download_vod(url: str):
 def user_input(json_data: dict):
         if len(json_data) > 1:
             json_data.pop('result')
+            data_to_display = []
             print("Available VODs:")
             for key, value in json_data.items():
-                print(f"ID: {key}\nDate: {value['date']}\nStream Title: {value['stream_title']}\n")
+                data_to_display.append([value['id'], value['stream_title'], value['date']])
+
+            print(tabulate(data_to_display, headers=['ID', 'Stream Title', 'Date'], tablefmt='fancy_grid', colalign=('center', 'center', 'center')))   
 
             questions = [
                     inquirer.Checkbox('ID',
