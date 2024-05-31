@@ -66,7 +66,7 @@ def user_input(json_data: dict):
 # Main script, might change to a separated file
 if __name__ == "__main__":
     try:
-        user = fetch_user_info(str(input("Stream username: "))) 
+        user = fetch_user_info(str(input("Stream username: ").strip())) 
         print("Wait a second...")
 
         if user:
