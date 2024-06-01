@@ -8,8 +8,8 @@ An *amateurish* program in python to download VODs from Pomf.tv using a **[publi
 - [ ] A better project name
 - [X] Better ID choosing 
 - [X] Multiple download
-- [ ] Configuration line
-- [ ] Downloaded VODs folder
+- [X] Configuration line
+- [X] Downloaded VODs folder
 
 ## Repos
 - [*ATF*](https://git.allthefallen.moe/i4gor/pomf-vod-dl)
