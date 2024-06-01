@@ -13,9 +13,6 @@ URL_FETCH_USER = "https://pomf.tv/api/streams/getinfo.php?data=streamdata&stream
 #                                                                #
 #                       CONFIGURATION (?)                        #
 #                                                                #
-#       Windows users might have to use "\" ("\\" in Python)     #
-#          GNU/Linux users can use "/" without problems          #
-#                                                                #
 ##################################################################
 
 DOWNLOAD_PATH = Path("./PomfTV") # Same folder as the script by default. DO NOT FORGET THE LAST "/" !!!!!
