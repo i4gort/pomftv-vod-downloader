@@ -1,3 +1,4 @@
+from pathlib import Path
 from yt_dlp import YoutubeDL
 from tabulate import tabulate
 import sys
@@ -7,6 +8,19 @@ import inquirer
 # Append user after each
 URL_VOD = "https://pomf.tv/api/history/getuserhistory.php?user="
 URL_FETCH_USER = "https://pomf.tv/api/streams/getinfo.php?data=streamdata&stream="
+
+##################################################################
+#                                                                #
+#                       CONFIGURATION (?)                        #
+#                                                                #
+#       Windows users might have to use "\" ("\\" in Python)     #
+#          GNU/Linux users can use "/" without problems          #
+#                                                                #
+##################################################################
+
+DOWNLOAD_PATH = Path("./PomfTV") # Same folder as the script by default. DO NOT FORGET THE LAST "/" !!!!!
+
+##################################################################
 
 # Get the correct username for vod history, for some reason it is case sensitive
 def fetch_user_info(user: str):
@@ -37,7 +51,7 @@ def fetch_vod_history(user: str):
 # Download vod using YoutubeDL
 def download_vod(url: str):
     ydl_opts = {
-            "outtmpl":"%(title)s.%(ext)s" # Default config using the serverside filename. Change as you wish
+            "outtmpl": str(DOWNLOAD_PATH / user / "%(title)s.%(ext)s") # Default config using the serverside filename. Change as you wish
             }
     try:
         with YoutubeDL(ydl_opts) as ydl:
