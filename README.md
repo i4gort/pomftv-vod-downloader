@@ -3,6 +3,29 @@
 
 An *amateurish* program in python to download VODs from Pomf.tv using a **[public API](https://pomf.tv/help#api)**.
 
+## Requirements
+- Python 3.x
+- `yt_dlp` (a fork of youtube-dl)
+- `tabulate`
+- `inquirer`
+- `requests`
+
+## Usage
+1. Clone or downlod the script.
+2. Install the required libraries by running:
+```
+pip install -r requirements.txt
+```
+3. Run the script:
+```
+python pomftv_vod_dl.py
+```
+4. Enter the streamer's username when prompted.
+5. Choose the VOD(s) you want to download from the list.
+
+## Configuration
+- **DOWNLOAD_PATH**: Default download path for VODs. Default is `./PomfTV`
+
 ## TODO
 
 - [ ] A better project name
@@ -11,6 +34,6 @@ An *amateurish* program in python to download VODs from Pomf.tv using a **[publi
 - [X] Configuration line
 - [X] Downloaded VODs folder
 
-## Repos
-- [*ATF*](https://git.allthefallen.moe/i4gor/pomf-vod-dl)
-- [*Github*](https://github.com/i4gort/pomftv-vod-downloader)
+## Other Repositories
+- [ATF](https://git.allthefallen.moe/i4gor/pomf-vod-dl)
+- [Github](https://github.com/i4gort/pomftv-vod-downloader)
