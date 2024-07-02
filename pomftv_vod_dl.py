@@ -45,10 +45,18 @@ def fetch_vod_history(user: str):
         print(f"Error: {e}")
         sys.exit()
 
+# YoutubeDL Hooks, don't bother with
+def progress_hooks(d):
+    if d['status'] == 'finished':
+        print(f"\nDownloaded to {str(DOWNLOAD_PATH / user)}")
+
 # Download vod using YoutubeDL
 def download_vod(url: str):
     ydl_opts = {
-            "outtmpl": str(DOWNLOAD_PATH / user / "%(title)s.%(ext)s") # Default config using the serverside filename. Change as you wish
+            "outtmpl": str(DOWNLOAD_PATH / user / "%(title)s.%(ext)s"), # Default config using the serverside filename. Change as you wish
+            "quiet": True,
+            "noprogress": False,
+            "progress_hooks": [progress_hooks] # The above function
             }
     try:
         with YoutubeDL(ydl_opts) as ydl:
