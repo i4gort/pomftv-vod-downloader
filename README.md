@@ -33,6 +33,7 @@ python pomftv_vod_dl.py
 - [X] Multiple download
 - [X] Configuration line
 - [X] Downloaded VODs folder
+- [ ] Somehow use **[lower ping servers](https://pomf.tv/help#streaming)**
 
 ## Other Repositories
 - [ATF](https://git.allthefallen.moe/i4gor/pomf-vod-dl)
