@@ -18,7 +18,7 @@ pip install -r requirements.txt
 ```
 3. Run the script:
 ```
-python pomftv_vod_dl.py
+python main.py
 ```
 4. Enter the streamer's username when prompted.
 5. Choose the VOD(s) you want to download from the list.
