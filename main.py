@@ -29,7 +29,5 @@ if __name__ == "__main__":
             except Exception as e:
                 print(f"Error: {e}")
 
-    except Exception as error:
-        print(error)
     except KeyboardInterrupt:
         print("\nExiting...")
