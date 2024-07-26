@@ -76,7 +76,11 @@ class PomfTVDownloader:
             ]
             answer = inquirer.prompt(questions)
 
-            return answer['ID']
+            if answer == None:
+                print("No selection made.")
+                exit(1)
+            else:
+                return answer['ID']
         else:
             return None
 
