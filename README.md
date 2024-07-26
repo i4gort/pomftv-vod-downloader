@@ -18,7 +18,11 @@ pip install -r requirements.txt
 ```
 3. Run the script:
 ```
-python main.py
+python pomf.py
+```
+or
+```
+python pomf.py <streamer>
 ```
 4. Enter the streamer's username when prompted.
 5. Choose the VOD(s) you want to download from the list.
