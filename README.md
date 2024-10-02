@@ -18,17 +18,20 @@ pip install -r requirements.txt
 ```
 3. Run the script:
 ```
-python pomf.py
+python pomfdl.py --user <streamer>
 ```
+You’ll then be able to select and download the VOD(s) from the list.
+
 or
+
 ```
-python pomf.py <streamer>
+python pomfdl.py --url https://pomf.tv/streamhistory/username/id
 ```
-4. Enter the streamer's username when prompted.
-5. Choose the VOD(s) you want to download from the list.
+It'll then download the desired VOD from the url.
 
 ## Configuration
-- **DOWNLOAD_PATH**: Default download path for VODs. Default is `./PomfTV`
+- **DEFAULT_DIR**: Default download path for VODs. Default is `./PomfTV`
+You can adjust this setting directly in the script if you want to permanently change the default download folder.
 
 ## TODO
 
