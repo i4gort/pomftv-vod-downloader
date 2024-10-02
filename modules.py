@@ -1,18 +1,27 @@
-from yt_dlp import YoutubeDL
-import requests as req
+import sys
+import re
+import html
 import inquirer
+import requests as req
+from pathlib import Path
 from tabulate import tabulate
+from yt_dlp import YoutubeDL
 
+############### "HANDLER" ###############
 class PomfTVDownloader:
     def __init__(self, download_path):
         # Append user after each
 
-        self.DOWNLOAD_PATH = download_path
+        self.DOWNLOAD_PATH = Path(download_path)
+        
+        # Thinking in moving URL_ to a constant above
         self.URL_VOD = "https://pomf.tv/api/history/getuserhistory.php?user="
         self.URL_FETCH_USER = "https://pomf.tv/api/streams/getinfo.php?data=streamdata&stream="
 
-    # Get correct username for vod history, for some reason it's case sensitive
-    def get_correct_username(self, user: str):
+    # Get username for vod history,
+    # For some reason it's case sensitive so we have to have to do something like get_user(user)["streamer"]
+    # Where the field ["streamer"] is the correct username used in vod history
+    def get_user(self, user: str):
         url = self.URL_FETCH_USER + user
         try:
             response = req.get(url)
@@ -20,11 +29,13 @@ class PomfTVDownloader:
             if "error" in data:
                 print(data["message"])
                 return None
+                sys.exit(-1)
             elif "result" in data:
-                return data["streamer"]
+                return data
         except Exception as e:
             print(f"Error: {e}")
             return None
+            sys.exit(-1)
 
     # Fetch user's vod history as json
     def fetch_vod_history(self, user: str):
@@ -74,6 +85,7 @@ class PomfTVDownloader:
                 message="Which VOD would you like to download (space to select/enter to confirm)",
                 choices=json_data)
             ]
+
             answer = inquirer.prompt(questions)
 
             if answer == None:
@@ -84,3 +96,78 @@ class PomfTVDownloader:
         else:
             return None
 
+############### END "HANDLER" ###############
+
+############### OPT ###############
+help_message = f"""Usage:
+ {sys.argv[0]} [OPTION] parameter
+
+Options:
+ -u, --user USERNAME      Download through username, select which vod to download
+ -U, --url  URL           Download through url e.g. https://pomf.tv/streamhistory/username/id
+ -s, --search USERNAME    Search user's info
+ -d, --dir DIRECTORY      Exact location for file downloads"""
+
+
+# Require two parameters
+# Download from a streamhistory url e.g. https://pomf.tv/streamhistory/OkYmir/94972
+# It extracts the user and id and then use download_vod() with the correct parameters
+def url_opt(url_arg: str, handler: PomfTVDownloader):
+    pattern = r"https://pomf\.tv/streamhistory/([A-Za-z0-9_]+)/(\d+)"
+    match = re.search(pattern, url_arg)
+
+    if match != None:
+        user = match.group(1)
+        vod_id = match.group(2)
+
+        streamer_info = handler.get_user(user)
+        vod_history = handler.fetch_vod_history(streamer_info["streamer"])
+        handler.download_vod("https:" + vod_history[vod_id]["raw_url"], user)
+    else:
+        print("Invalid url.")
+        print("Expected: https://pomf.tv/streamhistory/username/id")
+        # Nor {url_arg: <9} neither url_arg.rjust(9) worked
+        print(f"Got:      {url_arg}")
+        sys.exit(-1)
+        
+# Requires two parameters
+# Search the user, idk... For debug and stalking purposes    
+def search_opt(user_arg: str, handler: PomfTVDownloader):
+    info = handler.get_user(user_arg)
+    if (info != None):
+        print("-" * 23)
+        print(f"--User found: {info['streamer']}")
+        print(f"Profile Image: {'https://pomf.tv/img/avatars/' + info['profileimage']}")
+        print(f"Online: {'NO' if (info['stream_online'] == 0) else 'YES'}")
+        print(f"Followers: {info['followers']}")
+        print(f"Viewers: {info['viewers']}")
+        print(f"Stream Title: {info['streamtitle']}")
+        print(f"Stream Info: {info['streaminfo']}")
+        print(f"Stream Banner: {'https://pomf.tv/img/stream/thumb/' + info['streambanner']}") 
+#       print(f"Protection: {info['protection']}) # Empty so far
+#       print(f"Stream Description:\n{html.unescape(info['streamdesc'])}") # Raw html
+        print(f"Start Time: {info['starttime']}")
+        print(f"Chat Access: {'NO' if (info['chat_access'] == False) else 'YES'}")
+        print("-" * 23)
+    else:
+        sys.exit(-1)
+        
+# Requires two parameters
+# Uses the "old" way of download
+# Makes the user select which vods to download
+def user_opt(user_arg: str, handler: PomfTVDownloader):
+    user = handler.get_user(user_arg)
+    if user:
+        vod_history = handler.fetch_vod_history(user["streamer"]) # Names differ
+        try:
+            vod_ids = handler.user_input(vod_history)
+            if vod_ids != None:
+                for number_id in vod_ids:
+                    url = "https:" + vod_history[number_id]["raw_url"]
+                    handler.download_vod(url, user["streamer"])
+            else:
+                print("There's no VOD Available.")
+        except Exception as error:
+            print(f"Error: {error}")
+        
+############### OPT END ###############
