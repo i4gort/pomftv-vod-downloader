@@ -11,12 +11,12 @@ An *amateurish* program in python to download VODs from Pomf.tv using their **[p
 - `requests`
 
 ## Usage
-1. Clone or downlod the script.
+1. Clone or downlod the program.
 2. Install the required libraries by running:
 ```
 pip install -r requirements.txt
 ```
-3. Run the script:
+3. Run the program:
 ```
 python pomfdl.py --user <streamer>
 ```
@@ -31,7 +31,7 @@ It'll then download the desired VOD from the url.
 
 ## Configuration
 - **DEFAULT_DIR**: Default download path for VODs. Default is `./PomfTV`
-You can adjust this setting directly in the script if you want to permanently change the default download folder.
+You can adjust this setting directly in the program if you want to permanently change the default download folder.
 
 ## TODO
 
