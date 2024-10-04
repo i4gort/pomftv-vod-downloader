@@ -11,7 +11,7 @@ from modules import PomfTVDownloader, search_opt, url_opt, user_opt, help_messag
 #     e.g. C:\Users\Anon\Videos\PomfTV OR ~/Videos/PomfTV        #
 ##################################################################
 
-DEFAULT_DIR = ("./")                                             
+DEFAULT_DIR = ("./PomfTV")                                             
 
 ########################### MAIN #################################
 
