@@ -103,10 +103,10 @@ help_message = f"""Usage:
  {sys.argv[0]} [OPTION] parameter
 
 Options:
- -u, --user USERNAME      Download through username, select which vod to download
- -U, --url  URL           Download through url e.g. https://pomf.tv/streamhistory/username/id
- -s, --search USERNAME    Search user's info
- -d, --dir DIRECTORY      Exact location for file downloads"""
+ -u, --user   <USERNAME>      Download through username, select which vod to download
+ -U, --url    <URL>           Download through url e.g. https://pomf.tv/streamhistory/username/id
+ -s, --search <USERNAME>      Search user's info
+ -d, --dir    <DIRECTORY>     Exact location for file downloads"""
 
 
 # Require two parameters
@@ -121,8 +121,14 @@ def url_opt(url_arg: str, handler: PomfTVDownloader):
         vod_id = match.group(2)
 
         streamer_info = handler.get_user(user)
-        vod_history = handler.fetch_vod_history(streamer_info["streamer"])
-        handler.download_vod("https:" + vod_history[vod_id]["raw_url"], user)
+        if streamer_info != None:
+            vod_history = handler.fetch_vod_history(streamer_info["streamer"])
+            if vod_id in vod_history:
+                handler.download_vod("https:" + vod_history[vod_id]["raw_url"], user)
+            else:
+                print("Invalid id. Perhaps it doesn't exist anymore?")
+        else:
+            pass
     else:
         print("Invalid url.")
         print("Expected: https://pomf.tv/streamhistory/username/id")
