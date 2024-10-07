@@ -162,7 +162,7 @@ def search_opt(user_arg: str, handler: PomfTVDownloader):
         print(f"Viewers: {info['viewers']}")
         print(f"Stream Title: {info['streamtitle']}")
         print(f"Stream Info: {info['streaminfo']}")
-        print(f"Stream Banner: {'https://pomf.tv/img/stream/thumb/' + info['streambanner']}") 
+        print(f"Stream Banner: {'https://pomf.tv/img/stream/' + info['streambanner']}") 
 #       print(f"Protection: {info['protection']}) # Empty so far
 #       print(f"Stream Description:\n{html.unescape(info['streamdesc'])}") # Raw html
         print(f"Start Time: {info['starttime']}")
